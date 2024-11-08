@@ -1,0 +1,8 @@
+{
+    "files.watcherExclude": {
+        "**/datasets/**": true
+    },
+    "python.analysis.exclude": [
+        "**/datasets"
+    ]
+}

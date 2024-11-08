@@ -1,0 +1,7 @@
+pandas
+numpy
+torch
+scikit-learn
+fire
+opencv-python
+whispers git+https://github.com/openai/whisper.git

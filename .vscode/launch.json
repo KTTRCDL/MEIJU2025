@@ -1,0 +1,86 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "test whole_train_baseline_multimodel",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/whole_train_baseline_multimodel.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--total_cv", "2",
+                "--batch_size", "128",
+                "--name", "test",
+                "--eval_freq", "25",
+                "--save_freq", "25",
+                "--niter", "1",
+                "--niter_decay", "1",
+                "--pretrain_niter", "1",
+                "--pretrain_niter_decay", "1",
+            ],
+        },
+        {
+            "name": "test pretrain train_baseline_multimodel",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/train_baseline_multimodel.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--total_cv", "2",
+                "--batch_size", "128",
+                "--name", "test",
+                "--eval_freq", "25",
+                "--save_freq", "25",
+                "--niter", "1",
+                "--niter_decay", "1",
+            ],
+        },
+        {
+            "name": "test train from pretrain train_baseline_multimodel",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/train_baseline_multimodel.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--name", "test",
+                "--eval_freq", "5",
+                "--niter", "1",
+                "--niter_decay", "1",
+                "--load_model_path", "checkpoints/recurrence_pretrain_baseline_2024-11-01_18-39-50_variant_multimodal/1",
+                "--load_model_prefix", "best_F1",
+                "--device", "3"
+            ],
+        },
+        {
+            "name": "train_two_stage_pretrain_feature_baseline",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/train_two_stage_pretrain_feature_baseline.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--name", "my_baseline",
+                "--log_dir", "logs",
+                "--checkpoint_dir", "checkpoints",
+                "--gpu_id", "3",
+                "--model", "baseline",
+                "--input_feature_dims", "512", "1024", "768",
+                "--emotion_network_names", "LSTMEncoder", "TextCNN", "LSTMEncoder",
+                "--emotion_network_embed_dims", "128", "128", "128",
+                "--intent_network_names", "LSTMEncoder", "TextCNN", "LSTMEncoder",
+                "--intent_network_embed_dims", "128", "128", "128",
+                "--hidden_size", "128",
+                "--dataset_filelist_dir", "filelists/Track1_English_origin",
+                "--feature_dirs", "datasets/MC-EIU_Track1_English_Processed/Features/wav2vec-large-c-FRA",
+                "datasets/MC-EIU_Track1_English_Processed/Features/manet_FRA",
+                "datasets/MC-EIU_Track1_English_Processed/Features/roberta-base-4-FRA",
+                "--niter", "20",
+                "--niter_decay", "40",
+                "--print_freq", "10",
+                "--batch_size", "32"
+            ],
+        }
+    ]
+}
